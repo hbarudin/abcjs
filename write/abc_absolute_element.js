@@ -165,7 +165,7 @@ ABCJS.write.AbsoluteElement.prototype.setX = function (x) {
 		this.children[i].setX(x);
 };
 
-ABCJS.write.AbsoluteElement.prototype.draw = function (renderer, bartop) {
+ABCJS.write.AbsoluteElement.prototype.draw = function (renderer, bartop, index) {
 	this.elemset = renderer.paper.set();
 	if (this.invisible) return;
 	renderer.beginGroup();
@@ -176,7 +176,7 @@ ABCJS.write.AbsoluteElement.prototype.draw = function (renderer, bartop) {
 		}
 		this.elemset.push(this.children[i].draw(renderer,bartop));
 	}
-	this.elemset.push(renderer.endGroup(this.type));
+	this.elemset.push(renderer.endGroup(this.type, index));
 	if (this.klass)
 		this.setClass("mark", "", "#00ff00");
 	var color = ABCJS.write.debugPlacement ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0)"; // Create transparent box that encompasses the element, and not so transparent to debug it.

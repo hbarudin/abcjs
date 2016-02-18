@@ -27,8 +27,9 @@ if (!window.ABCJS.write)
  * Implements the API for rendering ABCJS Abstract Rendering Structure to a canvas/paper (e.g. SVG, Raphael, etc)
  * @param {Object} paper
  * @param {bool} doRegression
+ * @param {Object} options
  */
-ABCJS.write.Renderer = function(paper, doRegression) {
+ABCJS.write.Renderer = function(paper, doRegression, options) {
   this.paper = paper;
   this.controller = null; //TODO-GD only used when drawing the ABCJS ARS to connect the controller with the elements for highlighting
 
@@ -38,6 +39,10 @@ ABCJS.write.Renderer = function(paper, doRegression) {
   if (this.doRegression)
     this.regressionLines = [];
 	this.reset();
+
+	for(var propt in options){
+    this[propt] = options[propt];
+  }
 };
 
 ABCJS.write.Renderer.prototype.reset = function() {
@@ -420,10 +425,11 @@ ABCJS.write.Renderer.prototype.addPath = function (path) {
 /**
  * End a group of glyphs that will always be moved, scaled and highlighted together
  */
-ABCJS.write.Renderer.prototype.endGroup = function (klass) {
+ABCJS.write.Renderer.prototype.endGroup = function (klass, index) {
   this.ingroup = false;
   if (this.path.length===0) return null;
-  var ret = this.paper.path().attr({path:this.path, stroke:"none", fill:"#000000", 'class': this.addClasses(klass)});
+  var fillColor = ((this.highlightedNotes) && this.highlightedNotes[index]) ? "#FF0000" : "#000000";
+  var ret = this.paper.path().attr({path:this.path, stroke:"none", fill:fillColor, 'class': this.addClasses(klass)});
 	this.path = [];
   if (this.doRegression) this.addToRegression(ret);
 
