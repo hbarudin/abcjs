@@ -150,13 +150,14 @@ if (!window.ABCJS)
 	//			startingTune: an index, starting at zero, representing which tune to start rendering at.
 	//				(If this element is not present, then rendering starts at zero.)
 	//			width: 800 by default. The width in pixels of the output paper
+	//			highlightedNotes: an array of boolean values indicating if the note in this index position should be highlighted
 	ABCJS.renderAbc = function(output, abc, parserParams, engraverParams, renderParams) {
 		function callback(div, tune) {
 			var width = renderParams ? renderParams.width ? renderParams.width : 800 : 800;
 			/* jshint -W064 */ var paper = Raphael(div, width, 400); /* jshint +W064 */
 			if (engraverParams === undefined)
 				engraverParams = {};
-			var engraver_controller = new ABCJS.write.EngraverController(paper, engraverParams);
+			var engraver_controller = new ABCJS.write.EngraverController(paper, engraverParams, renderParams);
 			engraver_controller.engraveABC(tune);
 			tune.engraver = engraver_controller;
 		}

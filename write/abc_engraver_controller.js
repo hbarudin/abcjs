@@ -47,8 +47,9 @@ ABCJS.write.debugPlacement = false; // Set this to true to get lots of lines and
  *
  * @param {Object} paper SVG like object with methods path, text, etc.
  * @param {Object} params all the params -- documented on github //TODO-GD move some of that documentation here
+ * @param {Object} options renderOptions
  */
-ABCJS.write.EngraverController = function(paper, params) {
+ABCJS.write.EngraverController = function(paper, params, options) {
   params = params || {};
   this.space = 3*ABCJS.write.spacing.SPACE;
   this.scale = params.scale || undefined;
@@ -73,7 +74,7 @@ ABCJS.write.EngraverController = function(paper, params) {
 	Raphael._availableAttrs['text-decoration'] = "";
 
   //TODO-GD factor out all calls directly made to renderer.paper and fix all the coupling issues below
-  this.renderer=new ABCJS.write.Renderer(paper, params.regression);
+  this.renderer=new ABCJS.write.Renderer(paper, params.regression, options);
 	this.renderer.setPaddingOverride(params);
   this.renderer.controller = this; // TODO-GD needed for highlighting
 

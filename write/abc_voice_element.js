@@ -240,7 +240,7 @@ ABCJS.write.VoiceElement.prototype.draw = function (renderer, bartop) {
 			renderer.measureNumber = 0;
 			justInitializedMeasureNumber = true;
 		}
-		child.draw(renderer, (this.barto || i===ii-1)?bartop:0);
+		child.draw(renderer, (this.barto || i===ii-1)?bartop:0, i);
 		if (child.type === 'bar' && !justInitializedMeasureNumber)
 			renderer.measureNumber++;
 	}
