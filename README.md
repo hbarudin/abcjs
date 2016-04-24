@@ -1,5 +1,10 @@
 # abcjs
 
+## For use with Songwise:
+For dev, use the `minify_songwise.sh` script, not the standard `minify.sh` script to build/drop into `/songwise/vendor/assets/javascripts` (assuming the `abcjs` and `songwise` folders are in the same folder/have the same parent. This will only process the Basic files (not Plugin or Editor files). It wlil also NOT minify the files. (For minification/prod, )
+
+---
+
 **javascript for rendering abc music notation**
 
 [abcjs Home page](http://abcjs.net)
